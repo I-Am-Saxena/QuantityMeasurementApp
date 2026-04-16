@@ -3,9 +3,17 @@ public class Quantity {
     private final LengthUnit unit;
 
     public Quantity(double value, LengthUnit unit) {
+
+        // ❌ Null unit check
         if (unit == null) {
             throw new IllegalArgumentException("Unit cannot be null");
         }
+
+        // ❌ Negative value check
+        if (value < 0) {
+            throw new IllegalArgumentException("Value cannot be negative");
+        }
+
         this.value = value;
         this.unit = unit;
     }
@@ -18,24 +26,26 @@ public class Quantity {
         return unit;
     }
 
-    // Convert to target unit
     public Quantity convertTo(LengthUnit targetUnit) {
+
+        if (targetUnit == null) {
+            throw new IllegalArgumentException("Target unit cannot be null");
+        }
+
         double valueInFeet = unit.toFeet(value);
         double convertedValue = valueInFeet / targetUnit.toFeet(1);
         return new Quantity(convertedValue, targetUnit);
     }
 
-    // ✅ ADDITION METHOD
     public Quantity add(Quantity other) {
+
         if (other == null) {
             throw new IllegalArgumentException("Cannot add null quantity");
         }
 
-        // Convert both to base (feet)
         double sumInFeet = this.unit.toFeet(this.value) + other.unit.toFeet(other.value);
-
-        // Return result in current object's unit
         double resultValue = sumInFeet / this.unit.toFeet(1);
+
         return new Quantity(resultValue, this.unit);
     }
 
@@ -45,6 +55,7 @@ public class Quantity {
 
     @Override
     public boolean equals(Object obj) {
+
         if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false;
 

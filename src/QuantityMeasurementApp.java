@@ -2,18 +2,26 @@ public class QuantityMeasurementApp {
 
     public static void main(String[] args) {
 
-        Quantity q1 = new Quantity(1.0, LengthUnit.METER);
-        Quantity q2 = new Quantity(100.0, LengthUnit.CM);
+        try {
+            Quantity q1 = new Quantity(1.0, LengthUnit.FEET);
+            Quantity q2 = new Quantity(12.0, LengthUnit.INCH);
 
-        // Equality check
-        System.out.println("1 meter == 100 cm: " + q1.equals(q2)); // true
+            // Valid addition
+            Quantity result = q1.add(q2);
+            System.out.println("Result: " + result.getValue() + " " + result.getUnit());
 
-        // Conversion
-        Quantity converted = q1.convertTo(LengthUnit.FEET);
-        System.out.println("1 meter in feet: " + converted.getValue());
+            // ❌ Negative value test
+            Quantity invalid = new Quantity(-5.0, LengthUnit.FEET);
 
-        // Addition
-        Quantity result = q1.add(q2);
-        System.out.println("1 meter + 100 cm = " + result.getValue() + " " + result.getUnit());
+        } catch (IllegalArgumentException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+
+        try {
+            // ❌ Null unit test
+            Quantity invalid2 = new Quantity(5.0, null);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
     }
 }
