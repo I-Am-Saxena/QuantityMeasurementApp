@@ -2,15 +2,18 @@ public class QuantityMeasurementApp {
 
     public static void main(String[] args) {
 
-        Quantity q1 = new Quantity(1.0, LengthUnit.FEET);
+        Quantity q1 = new Quantity(1.0, LengthUnit.METER);
+        Quantity q2 = new Quantity(100.0, LengthUnit.CM);
 
-        // Convert 1 foot → inches
-        Quantity result = q1.convertTo(LengthUnit.INCH);
+        // Equality check
+        System.out.println("1 meter == 100 cm: " + q1.equals(q2)); // true
 
-        System.out.println("1 ft in inches: " + result.getValue());
+        // Conversion
+        Quantity converted = q1.convertTo(LengthUnit.FEET);
+        System.out.println("1 meter in feet: " + converted.getValue());
 
-        // Verify conversion using equality
-        Quantity q2 = new Quantity(12.0, LengthUnit.INCH);
-        System.out.println("1 ft == 12 inch: " + q1.equals(q2)); // true
+        // Addition
+        Quantity result = q1.add(q2);
+        System.out.println("1 meter + 100 cm = " + result.getValue() + " " + result.getUnit());
     }
 }
