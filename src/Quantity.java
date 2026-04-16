@@ -4,12 +4,10 @@ public class Quantity {
 
     public Quantity(double value, LengthUnit unit) {
 
-        // ❌ Null unit check
         if (unit == null) {
             throw new IllegalArgumentException("Unit cannot be null");
         }
 
-        // ❌ Negative value check
         if (value < 0) {
             throw new IllegalArgumentException("Value cannot be negative");
         }
@@ -61,5 +59,11 @@ public class Quantity {
 
         Quantity other = (Quantity) obj;
         return Double.compare(this.toBase(), other.toBase()) == 0;
+    }
+
+    // ✅ NEW: toString() for better output
+    @Override
+    public String toString() {
+        return value + " " + unit;
     }
 }

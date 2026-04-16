@@ -2,26 +2,19 @@ public class QuantityMeasurementApp {
 
     public static void main(String[] args) {
 
-        try {
-            Quantity q1 = new Quantity(1.0, LengthUnit.FEET);
-            Quantity q2 = new Quantity(12.0, LengthUnit.INCH);
+        Quantity q1 = new Quantity(1.0, LengthUnit.FEET);
+        Quantity q2 = new Quantity(12.0, LengthUnit.INCH);
 
-            // Valid addition
-            Quantity result = q1.add(q2);
-            System.out.println("Result: " + result.getValue() + " " + result.getUnit());
+        // Addition
+        Quantity result = q1.add(q2);
 
-            // ❌ Negative value test
-            Quantity invalid = new Quantity(-5.0, LengthUnit.FEET);
+        // ✅ Cleaner output
+        System.out.println("Result: " + result);
 
-        } catch (IllegalArgumentException e) {
-            System.out.println("Error: " + e.getMessage());
-        }
+        // Conversion
+        System.out.println("1 ft in inches: " + q1.convertTo(LengthUnit.INCH));
 
-        try {
-            // ❌ Null unit test
-            Quantity invalid2 = new Quantity(5.0, null);
-        } catch (IllegalArgumentException e) {
-            System.out.println("Error: " + e.getMessage());
-        }
+        // Equality
+        System.out.println("1 ft == 12 inch: " + q1.equals(q2));
     }
 }
